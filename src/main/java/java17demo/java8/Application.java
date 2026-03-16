@@ -1,12 +1,11 @@
 package java17demo.java8;
 
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+import java.util.Base64;
 
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Marshaller;
-
-import java.util.Base64;
 
 public class Application {
 	public static void main(String[] args) {
@@ -38,8 +37,7 @@ public class Application {
 	}
 
 	public static String encode(String originalString) {
-		Base64.Encoder encoder = Base64.getEncoder();
-		String encodedString = encoder.encodeToString(originalString.getBytes());
+		String encodedString = Base64.getEncoder().encodeToString(originalString.getBytes(StandardCharsets.UTF_8));
 		System.out.println("Original String: " + originalString);
 		System.out.println("Encoded String:  " + encodedString);
 		System.out.println("**************************************");
@@ -47,9 +45,8 @@ public class Application {
 	}
 
 	public static String decode(String encodedString) {
-		String decodedString = "";
 		byte[] decodedBytes = Base64.getDecoder().decode(encodedString);
-		decodedString = new String(decodedBytes, Charset.forName("UTF-8"));
+		String decodedString = new String(decodedBytes, StandardCharsets.UTF_8);
 		System.out.println("Encoded String:  " + encodedString);
 		System.out.println("Decoded String:  " + decodedString);
 		System.out.println("**************************************");

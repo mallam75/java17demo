@@ -12,7 +12,7 @@
 	</properties>
 
 	<dependencies>
-	    <!-- JAX-B is needed as a dependency on Java 11+ -->
+		<!-- JAX-B is needed as a dependency on Java 11+ -->
 		<dependency>
 			<groupId>jakarta.xml.bind</groupId>
 			<artifactId>jakarta.xml.bind-api</artifactId>
