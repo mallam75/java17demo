@@ -1,14 +1,11 @@
 package java17demo.java8;
 
-import java.io.IOException;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+import java.util.Base64;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
-
-import sun.misc.BASE64Decoder;
-import sun.misc.BASE64Encoder;
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBException;
+import jakarta.xml.bind.Marshaller;
 
 public class Application {
 	public static void main(String[] args) {
@@ -16,7 +13,7 @@ public class Application {
 		myAddress.setStreet("123 Main Street");
 		myAddress.setCity("Rochester");
 		myAddress.setState("MN");
-		myAddress.setZip(new Integer(55901).toString());
+		myAddress.setZip(Integer.valueOf(55901).toString());
 
 		// Convert the object to XML
 		writeXML(myAddress);
@@ -40,8 +37,7 @@ public class Application {
 	}
 
 	public static String encode(String originalString) {
-		BASE64Encoder encoder = new BASE64Encoder();
-		String encodedString = encoder.encode(originalString.getBytes());
+		String encodedString = Base64.getEncoder().encodeToString(originalString.getBytes(StandardCharsets.UTF_8));
 		System.out.println("Original String: " + originalString);
 		System.out.println("Encoded String:  " + encodedString);
 		System.out.println("**************************************");
@@ -49,14 +45,8 @@ public class Application {
 	}
 
 	public static String decode(String encodedString) {
-		String decodedString = "";
-		try {
-			byte[] decodedBytes = new BASE64Decoder().decodeBuffer(encodedString);
-			decodedString = new String(decodedBytes, Charset.forName("UTF-8"));
-
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		byte[] decodedBytes = Base64.getDecoder().decode(encodedString);
+		String decodedString = new String(decodedBytes, StandardCharsets.UTF_8);
 		System.out.println("Encoded String:  " + encodedString);
 		System.out.println("Decoded String:  " + decodedString);
 		System.out.println("**************************************");
